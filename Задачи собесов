@@ -1,0 +1,456 @@
+Задача 1
+Написать функцию чанк, которая принимает массив и какое кол-во элементов должно быть в чанке. Далее функция возвращает массив с массивами, как в комментах 
+
+<script>
+  const data = [1,2,3,4,5,6,7,8,9];
+  
+    function chunk(arr, num) {
+      
+    }
+  
+  console.log(chunk(data, 3)); // [[1,2,3],[4,5,6],[7,8,9]]
+  console.log(chunk(data, 4)); // [[1,2,3,4],[5,6,7,8],[9]]
+  //console.log(chunk(data, 2)); // [[1,2],[3,4],[5,6],[7,8],[9]]
+</script>
+
+Решение:
+const chunk = (arr, num) => {
+  const newArr = [];
+  let chunk1 = [];
+  for (let i = 0; i < arr.length; i += num) {
+    for (let j = i; j < num; j++) {
+      if (arr[j]) chunk1.push(arr[j]);
+    }
+    newArr.push(chunk1);
+    chunk1 = [];
+  }
+  return newArr;
+};
+
+console.log(chunk([1, 2, 3, 4, 5, 6, 7, 8, 9], 3));
+========================================================================
+Задача 2
+const Tree = {
+    val: 12,
+    left: {
+        val: 24,
+        left: {
+            val: 24,
+        },
+        right: {
+            val: 15,
+        }
+    },
+    right: {
+        val: 13,
+        left: {
+            val: 23,
+        },
+    }
+}
+
+// Написать функцию, которая суммирует все значения дерева.
+// 12 + 24 + 24 + 15 + 13 + 23 = 111
+Делать рекурсией запрещено законом + вложенность может быть любая
+
+Решение:
+=>
+const sumTree = (obj) => {
+  let sum = 0;
+  const objJson = JSON.stringify(obj).match(/\d+/g);
+  for (const el of objJson) {
+    sum += +el;
+  }
+  return sum;
+};
+=>
+const sumTree2 = (obj) => {
+  let sum = 0;
+  const arrValues = Object.values(obj);
+  for (const el of arrValues) {
+    if (Number.isInteger(el)) {
+      sum += el;
+    } else {
+      sum += sumTree(el);
+    }
+  }
+  return sum;
+};
+============================================================================
+Задача 3
+/**
+* Эти функции обязательные
+* (Изменять не можем)
+*/
+
+function heavyJob(idx, ms, callback) {
+  setTimeout(() => {
+    console.log(Task ${idx} is done);
+    if (callback) callback(idx);
+  }, ms);
+}
+
+function onStart() {
+  console.log('Start');
+}
+
+function onEnd() {
+  console.log('All tasks completed');
+}
+
+const task1 = (callback = () => {}) => heavyJob(1, 1500, callback);
+const task2 = (callback = () => {}) => heavyJob(2, 1000, callback);
+
+/**
+* Необходимо выполнить таски
+* Перед началом выполнения нужно вызвать *onStart*
+* После выполнения всех тасок нужно вызвать *onEnd*
+* (Работаем с этим кодом, меняем как угодно)
+*/
+=================================================================================
+Задача 4
+// Из исходного массива сделать объект, ключами которого будут все встречающиеся gender, а значениями массив объектов юзеров
+
+const users = [
+  {
+    id: 1,
+    name: 'Виктория',
+    gender: 'female',
+  },
+  {
+    id: 2,
+    name: 'Андрей',
+    gender: 'male',
+  },
+  {
+    id: 3,
+    name: 'Александр',
+    gender: 'male',
+  },
+];
+
+
+Решение:
+const resObj = {};
+const arrKeys = new Set();
+for (const user of users) {
+  arrKeys.add(user.gender);
+}
+for (const key of arrKeys) {
+  resObj[key] = users.filter((user) => user.gender === key);
+}
+console.log(resObj);
+================================================================================
+Задача 5
+Написать функцию, которая принимает массив элементов 1 параметром, вторым параметром отдельный элемент и преобразует их в такую верстку: 
+
+// F([A, B], C) → <A><B><C/></B></A>
+
+const SomeComponent = (arrComp, onlyComp) => {
+  
+}
+
+Решение:
+const SomeComponent = (arrComp, onlyComp) => {
+  let res = <${onlyComp}/>;
+  for (const item of arrComp.reverse()) {
+    res = <${item}>${res}</${item}>;
+  }
+  return res;
+};
+=================================================================================
+Задача 6
+/* Задача 3:
+Дана структура данных в виде дерева
+Необходимо написать функцию, возвращающую значения всех вершин дерева:
+getTreeValues(tree); // => [1, 2, 3, 4, 5, 6, 7]
+*/
+const tree = {
+  value: 1,
+  children: [
+    {
+      value: 2,
+      children: [{ value: 4 }, { value: 5 }],
+    },
+    {
+      value: 3,
+      children: [{ value: 6 }, { value: 7 }],
+    },
+  ],
+};
+
+Решение: 
+const getRes = (obj) => JSON.stringify(obj).match(/\d+/g).map(item=>+item); 
+
+console.log(getRes(tree));
+===============================================================================
+Задача 7
+// дан массив, необходимо вернуть строку с ошибкой если одно из значений не является числом, если все значения верны, то возвращаем разность суммы чисел кратных 7 и максимально значения массива
+
+const arr = [1, NaN, 21, 40, 50, 35, 2, NaN, 16, 17, NaN, 98, 77, 49];
+const arr1 = [true];
+const arr2 = ['smth'];
+const arr3 = [1, 11, 21, 40, 50, 35, 2, 6, 16, 17, 63, 98, 77, 49];
+
+const getSumOfPreparedNumbers = (arr) => {
+
+}
+
+console.log(getSumOfPreparedNumbers(arr)); // output 'входящие данные не удовлетворяют требованиям'
+console.log(getSumOfPreparedNumbers(arr1)); // output 'входящие данные не удовлетворяют требованиям'
+console.log(getSumOfPreparedNumbers(arr2)); // output 'входящие данные не удовлетворяют требованиям'
+console.log(getSumOfPreparedNumbers(arr3)); // output 245
+
+Решение: 
+const getSumOfPreparedNumbers = (arr) => {
+  let sum = 0;
+  for (const el of arr) {
+    if (Number.isInteger(el)) {
+      if (el % 7 === 0) {
+        sum += el;
+      }
+    } else return "входящие данные не удовлетворяют требованиям";
+  }
+  return sum - Math.max(...arr);
+};
+===============================================================================
+Задача 8
+// на вход передано число, вернуть максимально возможное значение, составленное из цифр входящих в число
+// const getBigger = (number) => {
+//  
+// }
+
+// console.log(getBigger(6291))
+// console.log(getBigger(417))
+// console.log(getBigger(3814));
+
+Решение:
+const getBigger = (number) => {
+  return number
+    .toString()
+    .split("")
+    .sort((a, b) => +b - +a)
+    .join("");
+};
+===============================================================================
+Задача 9
+
+// `javascript вернуть массив уникальных чисел
+// const arr = ['a',0,4,'4','0',5,'d',7,0,'8',7,10,'s',1,3,'9',10,3,1,9,'u',6,5,'2'];
+
+// const getUniqDigits = () => {
+//  console.log('Your solution is here...')
+// }
+
+// console.log(getUniqDigits(arr)); // output [0,1,2,3,4,5,6,7,8,9,10]`
+
+Решение: 
+const getUniqDigits = () =>
+  [
+    ...new Set(
+      arr
+        .filter((item) => Number(item) || Number(item) === 0)
+        .map((item) => +item)
+    ),
+  ].sort((a, b) => a - b);
+===============================================================================
+Задача 10
+// const obj = { a: 1, b: 2, f: '33', d: '4', r: {c: 'rwerw', f: { a: 1, c: 3}} };
+
+Необходимо написать функцию, которая на вход принимает объект и возвращает новый объект без свойства c - 2 варианта
+ 
+// const removeC = (obj) => {
+
+// };
+
+// removeC(obj)
+Решение:
+const removeC = (obj) => {
+  const res = {};
+  const keys = Object.keys(obj).filter((el) => el !== "c");
+  for (const el of keys) {
+    if (typeof obj[el] !== "object") {
+      res[el] = obj[el];
+    } else {
+      res[el] = removeC(obj[el]);
+    }
+  }
+  return res;
+};
+===============================================================================
+Задача 11
+// const a = setTimeout(() => console.log(2), 2000);
+// const d = setTimeout(() => console.log(6), 1000);
+
+// const c = new Promise( (resolve) => { 
+//   setTimeout(() => resolve(), 1000);
+//   console.log(4);
+// });
+// c.then(() => console.log(1));
+
+// const b = setTimeout(() => console.log(5), 1000);
+
+// console.log(3);
+
+===============================================================================
+Задача 12
+
+//изменить код так, что бы в итоге выводился массив i ([], [1], [1, 1]) (сейчас выводится [1, 1, 1])
+
+// for(let i = []; i.length < 3; i.push(1)) {
+
+//     setTimeout(console.log(i), i.length*1000)
+
+// }
+Решение:
+for (let i = []; i.length < 3; i.push(1)) {
+  console.log(i);
+}
+
+===============================================================================
+Задача 13
+// написать функцию, которая принимает объект, строку с путем до значения в объекте, и выводит значение по данному пути, если значение не существует - возвращает undefined  
+// const obj = {
+//   a: {
+//     b: {
+//       c: {
+//         d: 'Привет!'
+//       }
+//     }
+//   }
+// }
+
+// function optionalChaining(o, path) {
+//  
+// }
+
+// optionalChaining(obj, 'a.b.c.d')
+
+Решение:
+function optionalChaining(o, path) {
+  const pathKey = path.split(".");
+  const key = pathKey.shift();
+  let res = o[key];
+  if (pathKey.length !== 0) {
+    res = optionalChaining(o[key], pathKey.join("."));
+  }
+  return res;
+}
+function getElem(elem, path) {
+    return path.length !== 0 ? getElem(elem[path[0]], path.slice(2)) : elem
+}
+===============================================================================
+Задача 14
+// написать функцию которая принимает массив значений и выводит массив уникальных элементов, отсортированных по частоте
+
+// const input = [1,1,1,2,2,2,2,4,4,5,0]
+
+// function sortBy(arr) {
+//  
+// }
+
+// sortBy(input);
+
+Решение:
+function sortBy(arr) {
+  const obj = {};
+  for (const el of arr) {
+    obj[el] = obj.hasOwnProperty(el) ? obj[el] + 1 : 1;
+  }
+  const newArr = arr.sort((a, b) => obj[b] - obj[a]);
+  return [...new Set(newArr)];
+}
+===============================================================================
+Задача 15
+
+// что будет в консоли
+
+// const asyncMethod = (el) => {
+//   return new Promise((resolve) => setTimeout(resolve((el*2)),0));
+// }
+
+// const someMethod = (data) => {
+//   const results = [];
+  
+//   data.forEach(async (el) => {
+//     let r = await asyncMethod(el);
+//     console.log(r, el)
+//     results.push(r);
+//   })
+//   return results;
+// }
+
+// const start = () => {
+//   const results = someMethod([1, 2, 4]);
+//   if(results instanceof Promise) {
+//     results.then(res => console.log(res))
+//   } else {
+//     console.log(results);
+//   }
+// }
+
+// start();
+
+===============================================================================
+Задача 16
+
+// Написать функцию, которая принимает массив объектов и название поля объекта и возвращает массив объектов, отсортированных по переданному полю
+
+//  const data = [
+// { id: 1, age: 20, name: "Иван", country: "Russia", registred: true },
+// { id: 2, age: 30, name: "Дима", country: "Usa", registred: true },
+// { id: 3, age: 25, name: "Леха", country: "Russia", registred: false },
+// { id: 4, age: 20, name: "Леха", country: "Usa", registred: false },
+// { id: 5, age: 30, name: "Иван", country: "Russia", registred: true },
+// { id: 6, age: 50, name: "Леха", country: "Russia", registred: true },
+// { id: 7, age: 20, name: "Дима", country: "Usa", registred: false }
+// ];
+
+// const helperFnc = function(array, param) {
+
+// }
+// console.log(helperFnc(data,'country'))
+
+
+===============================================================================
+Задача 17
+//Написать метод массива, который будет возвращать массив уникальных значений 
+
+// Array.prototype.findUnique = function() {
+
+// };
+
+// [10, 5, 10, 1, 6, 6, 6, 7, 9, 9, 10].findUnique();
+
+
+// сконкатенировать по value, expired не должны быть true, порядок отсортирован по order
+// const input = [
+//   {value: 'abcd', order: 4, expired: false},
+//   {value: 'qwer', order: 2, expired: true},
+//   {value: 'xyz1', order: 1, expired: false},
+//   {value: 'abx2', order: 3, expired: false},
+// ]
+
+// function inputExpiredSort(data) {
+// }
+
+// inputExpiredSort(input);
+
+===============================================================================
+Задача 18
+// написать функцию-полифилл promiseAll
+// function myPromiseAll(promises) {
+//  
+// }
+
+// const p1 = Promise.resolve("first");
+// const p2 = new Promise((resolve, reject) =>
+//   setTimeout(resolve, 1000, "second")
+// );
+// const p3 = Promise.resolve("third");
+// const p4 = Promise.reject("err");
+
+// myPromiseAll([p1, p2, p3, p4]);
+
+
+
